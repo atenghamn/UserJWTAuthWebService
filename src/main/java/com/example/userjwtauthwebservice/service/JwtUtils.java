@@ -11,8 +11,8 @@ import java.util.Date;
 @Service
 public class JwtUtils {
 
-    @Value("${expiration.millis}")
-    private int expiration_millis;
+ //   @Value("${expiration.millis}")
+    private int expiration_millis = 1000 * 60;
 
    @Value("${token.secret}")
     private String secret;

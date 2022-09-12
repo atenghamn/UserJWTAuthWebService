@@ -4,7 +4,6 @@ import com.example.userjwtauthwebservice.dto.userResponse;
 import com.example.userjwtauthwebservice.entities.User;
 import com.example.userjwtauthwebservice.exception.NotFoundException;
 import com.example.userjwtauthwebservice.repository.IUserRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
