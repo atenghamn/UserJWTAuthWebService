@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @SecurityScheme(
-        name="JwtAuth",
+        name="bearer-key",
         type= SecuritySchemeType.HTTP,
         scheme = "bearer",
         bearerFormat = "JWT"

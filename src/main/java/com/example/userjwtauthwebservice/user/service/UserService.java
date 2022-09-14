@@ -1,5 +1,6 @@
 package com.example.userjwtauthwebservice.user.service;
 
+import com.example.userjwtauthwebservice.user.dto.CreateUser;
 import com.example.userjwtauthwebservice.user.entities.User;
 import com.example.userjwtauthwebservice.exception.NotFoundException;
 import com.example.userjwtauthwebservice.user.repository.UserRepository;
@@ -21,5 +22,26 @@ public class UserService {
      public User getByUsername(String username){
          return userRepository.findUserByUsername(username).orElseThrow();
      }
+
+     public User create (CreateUser entity){
+         return userRepository.save(
+                 User.builder()
+                         .username(entity.username())
+                         .password(entity.password())
+                         .isAdministrator(entity.isAdministrator())
+                         .build()
+         );
+     }
+
+     public User update(Integer id, CreateUser user){
+         var entity = userRepository.findById(id)
+                 .orElseThrow();;
+         entity.setUsername(user.username());
+         entity.setPassword(user.password());
+         entity.setAdministrator(user.isAdministrator());
+         return userRepository.save(entity);
+     }
+
+     public void delete(Integer id) {userRepository.deleteById(id);}
 
 }
