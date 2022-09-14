@@ -1,11 +1,15 @@
 package com.example.userjwtauthwebservice.auth.filter;
+import com.example.userjwtauthwebservice.user.dto.UserDetailMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.FilterChain;
@@ -18,16 +22,13 @@ import java.security.Key;
 import java.util.List;
 
 import static com.example.userjwtauthwebservice.auth.domain.SecurityConstants.*;
-
-public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+@Component
+public class JWTAuthorizationFilter extends OncePerRequestFilter {
     private static final Key key = new SecretKeySpec(
             DatatypeConverter.parseBase64Binary(SECRET),
             SignatureAlgorithm.HS512.getJcaName());
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
-        super(authManager);
-
-    }
+    public JWTAuthorizationFilter(){}
 
     @Override
     protected void doFilterInternal(HttpServletRequest req,

@@ -1,8 +1,6 @@
 package com.example.userjwtauthwebservice.post.dto;
 
 import com.example.userjwtauthwebservice.post.entity.Post;
-import com.example.userjwtauthwebservice.user.dto.UserDetail;
-
 import java.util.List;
 
 public final class PostDetailMapper {
@@ -20,7 +18,7 @@ public final class PostDetailMapper {
     public static PostDetail from (Post entity){
         return new PostDetail(
                 entity.getId(),
-                entity.getUserId().getId(),
+                entity.getUserId(),
                 entity.getTitle(),
                 entity.getTitle()
         );
