@@ -23,14 +23,11 @@ import static com.example.userjwtauthwebservice.auth.domain.SecurityConstants.EX
 public class AuthController {
 
     private static final String INVALID_USERNAME_OR_PASSWORD = "Felaktigt användarnamn eller lösenord!";
-
     private final UserService userService;
-
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
     public AuthController(UserService userService, PasswordEncoder passwordEncoder, JwtService jwtService){
-
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
@@ -49,7 +46,8 @@ public class AuthController {
 
         return ResponseEntity.ok(
                 AuthenticationToken.builder()
-                .accessToken(jwtService.encodeJwt(JwtUser.builder()
+                .accessToken(jwtService.encodeJwt(
+                        JwtUser.builder()
                                 .id(user.getId())
                                 .username(user.getUsername())
                         .build()))
