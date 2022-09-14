@@ -32,4 +32,9 @@ public class AuthService
 
         return ResponseEntity.ok(jwtUtils.generateToken(username));
     }
+
+    public boolean validate(String token){
+        return jwtUtils.validate(token);
+    }
+
 }

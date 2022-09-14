@@ -1,6 +1,6 @@
 package com.example.userjwtauthwebservice.dto;
 
-public record userRequest(
+public record CreateUser(
         String username,
         String password
 ) {
