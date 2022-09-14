@@ -1,6 +1,6 @@
-package com.example.userjwtauthwebservice.dto;
+package com.example.userjwtauthwebservice.user.dto;
 
-import com.example.userjwtauthwebservice.entities.User;
+import com.example.userjwtauthwebservice.user.entities.User;
 
 public interface UserDetailMapper {
 
@@ -9,7 +9,8 @@ public interface UserDetailMapper {
             return null;
         return new UserDetail(
                 entity.getId(),
-                entity.getUsername()
+                entity.getUsername(),
+                entity.isAdministrator()
         );
     }
 }

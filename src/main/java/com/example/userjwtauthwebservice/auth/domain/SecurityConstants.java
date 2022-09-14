@@ -1,4 +1,4 @@
-package com.example.userjwtauthwebservice.security;
+package com.example.userjwtauthwebservice.auth.domain;
 
 public interface SecurityConstants {
     String SECRET ="nMcUPCp2wFU.7PC2KQ!s349-HG8rxMTC9843fEFwU8d2ryAWnrg7pj";

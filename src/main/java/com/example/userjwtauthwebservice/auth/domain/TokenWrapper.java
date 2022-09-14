@@ -1,5 +1,6 @@
-package com.example.userjwtauthwebservice.security;
+package com.example.userjwtauthwebservice.auth.domain;
 
+import com.example.userjwtauthwebservice.auth.domain.SecurityConstants;
 import com.example.userjwtauthwebservice.commons.Strings;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -15,6 +16,6 @@ public class TokenWrapper {
             this.claims = Jwts.parser().setSigningKey(SecurityConstants.SECRET).parseClaimsJws(tokenWithoutPrefix);
         }
     }
-    public  Integer getUserid(){return Integer.parseInt(claims.getBody().getSubject());}
+    public  Integer getUserId(){return Integer.parseInt(claims.getBody().getSubject());}
     public boolean isAdministrator() {return (Boolean) claims.getBody().get("isAdministrator");}
 }

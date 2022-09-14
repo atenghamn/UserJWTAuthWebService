@@ -1,4 +1,4 @@
-package com.example.userjwtauthwebservice.security;
+package com.example.userjwtauthwebservice.auth.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,4 +12,12 @@ public class JwtUser {
     String username;
     boolean isAdministrator;
     boolean isLeader;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public boolean isAdministrator() {
+        return isAdministrator;
+    }
 }

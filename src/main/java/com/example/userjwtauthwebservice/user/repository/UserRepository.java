@@ -1,12 +1,12 @@
-package com.example.userjwtauthwebservice.repository;
+package com.example.userjwtauthwebservice.user.repository;
 
-import com.example.userjwtauthwebservice.entities.User;
+import com.example.userjwtauthwebservice.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface IUserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findUserByUsername(String username);
 }

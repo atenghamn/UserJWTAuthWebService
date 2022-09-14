@@ -1,7 +1,7 @@
 package com.example.userjwtauthwebservice;
 
-import com.example.userjwtauthwebservice.entities.User;
-import com.example.userjwtauthwebservice.repository.IUserRepository;
+import com.example.userjwtauthwebservice.user.entities.User;
+import com.example.userjwtauthwebservice.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class UserJwtAuthWebServiceApplication implements CommandLineRunner {
 
     @Autowired
-    IUserRepository userRepository;
+    UserRepository userRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -22,6 +22,6 @@ public class UserJwtAuthWebServiceApplication implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-        userRepository.save(new User("Kent Beck", passwordEncoder.encode("thisIsATest")));
+        userRepository.save(new User("KentBeck", passwordEncoder.encode("thisIsATest"), true));
     }
 }

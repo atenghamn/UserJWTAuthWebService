@@ -1,4 +1,4 @@
-package com.example.userjwtauthwebservice.dto;
+package com.example.userjwtauthwebservice.auth;
 
 public record JwtRequest(
         String username,
