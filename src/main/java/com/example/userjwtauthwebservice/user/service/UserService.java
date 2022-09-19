@@ -35,7 +35,7 @@ public class UserService {
 
      public User update(Integer id, CreateUser user){
          var entity = userRepository.findById(id)
-                 .orElseThrow();;
+                 .orElseThrow();
          entity.setUsername(user.username());
          entity.setPassword(user.password());
          entity.setAdministrator(user.isAdministrator());

@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                        .antMatchers("/swagger-ui.html").permitAll()
                        .antMatchers("/swagger-ui/**").permitAll()
                        .antMatchers("/swagger-resources/**").permitAll()
-                       .antMatchers(HttpMethod.POST,"/api/auth/login").permitAll()
+                       .antMatchers(HttpMethod.POST,"/api/authenticate/login").permitAll()
                        .antMatchers(HttpMethod.GET,"/api/user/{id}").permitAll()
                        .antMatchers(HttpMethod.POST, "/api/user/{id}").permitAll()
                        .antMatchers(HttpMethod.PUT, "/api/user/{id}").permitAll()

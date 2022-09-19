@@ -46,6 +46,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         var authentication = getAuthentication(req);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
+
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {

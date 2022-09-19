@@ -10,7 +10,7 @@ public interface UserDetailMapper {
         return new UserDetail(
                 entity.getId(),
                 entity.getUsername(),
-                entity.isAdministrator()
+                entity.getIsAdministrator()
         );
     }
 }

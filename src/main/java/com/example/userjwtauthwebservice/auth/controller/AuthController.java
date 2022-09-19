@@ -50,6 +50,7 @@ public class AuthController {
                         JwtUser.builder()
                                 .id(user.getId())
                                 .username(user.getUsername())
+                                .isAdministrator(user.getIsAdministrator())
                         .build()))
                 .expiresIn(Long.toString(EXPIRATION_TIME))
                 .tokenType("Bearer")

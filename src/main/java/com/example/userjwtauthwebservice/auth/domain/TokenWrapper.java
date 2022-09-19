@@ -16,7 +16,7 @@ public class TokenWrapper {
         }
     }
 
-    public  Integer getUserId(){return Integer.parseInt(claims.getBody().getSubject());}
+    public  Integer getUserId(){return Integer.parseInt(claims.getBody().getId());}
     public boolean isAdministrator() {
         return (Boolean) claims.getBody().get("isAdministrator");
     }

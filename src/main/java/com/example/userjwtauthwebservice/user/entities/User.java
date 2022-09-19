@@ -32,4 +32,9 @@ public class User {
         this.isAdministrator = isAdministrator;
     }
 
+    public boolean getIsAdministrator() {
+        return isAdministrator;
+    }
+
+
 }

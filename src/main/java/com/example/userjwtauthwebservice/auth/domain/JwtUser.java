@@ -16,7 +16,7 @@ public class JwtUser {
         return id;
     }
 
-    public boolean isAdministrator() {
+    public boolean getIsAdministrator() {
         return isAdministrator;
     }
 

@@ -22,4 +22,13 @@ public class AuthorizationUtil {
         }
     }
 
+    public static boolean authorizeAdminForDataManipulation(String bearer, String actionDescription) {
+        var auth = new TokenWrapper(bearer);
+        if (!auth.isAdministrator())
+            return false;
+
+        log.info(AUTORIZED_ACCESS_LOG, actionDescription, auth.getUserId());
+        return true;
+    }
+
 }

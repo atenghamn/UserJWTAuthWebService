@@ -1,21 +1,23 @@
 package com.example.userjwtauthwebservice.post.service;
 
-import com.example.userjwtauthwebservice.post.entity.Post;
-import com.example.userjwtauthwebservice.post.repository.PostRepository;
+import com.example.userjwtauthwebservice.post.dto.PostDetail;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class PostService {
+    private final WebClient webClient;
 
-    private final PostRepository postRepository;
-
-    public PostService(PostRepository postRepository){
-        this.postRepository = postRepository;
-    }
-
-    public List<Post> getAll(int id){
-        return postRepository.findAllById(id);
+    public List<PostDetail> getAll(int id){
+        return webClient
+                .get()
+                .uri(String.format("/posts?userId=%s", id))
+                .exchangeToFlux(clientResponse -> clientResponse.bodyToFlux(PostDetail.class))
+                .buffer()
+                .blockLast();
     }
 }

@@ -6,13 +6,13 @@ import com.example.userjwtauthwebservice.exception.NotAuthorizedException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static com.example.userjwtauthwebservice.commons.AuthorizationUtil.authorizeAdmin;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.example.userjwtauthwebservice.commons.AuthorizationUtil.authorizeAdminForDataManipulation;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthorizationUtilTest {
 
     private static String ADMIN_TOKEN;
-    private static String REGULAR_TOKEN;
+    private static String USER_TOKEN;
 
     @BeforeAll
     public static void setup(){
@@ -24,7 +24,7 @@ public class AuthorizationUtilTest {
                     .isAdministrator(true)
                 .build());
 
-        REGULAR_TOKEN = "Bearer " + jwtService.encodeJwt(JwtUser.builder()
+        USER_TOKEN = "Bearer " + jwtService.encodeJwt(JwtUser.builder()
                         .id(2)
                         .username("Not Admin")
                         .isAdministrator(false)
@@ -38,6 +38,16 @@ public class AuthorizationUtilTest {
 
     @Test
     void whenNotAdmin_thenDontAuthorize(){
-        assertThrows(NotAuthorizedException.class, () -> authorizeAdmin(REGULAR_TOKEN, "Dont authorize admin with non-admin token"));
+        assertThrows(NotAuthorizedException.class, () -> authorizeAdmin(USER_TOKEN, "Dont authorize admin with non-admin token"));
+    }
+
+    @Test
+    void whenAdmin_thenReturnTrue(){
+        assertTrue(authorizeAdminForDataManipulation(ADMIN_TOKEN, "Authorize admin with admin token"));
+    }
+
+    @Test
+    void whenNotAdmin_thenReturnFalse(){
+        assertFalse(authorizeAdminForDataManipulation(USER_TOKEN, "Dont authorize admin with non-admin token"));
     }
 }
