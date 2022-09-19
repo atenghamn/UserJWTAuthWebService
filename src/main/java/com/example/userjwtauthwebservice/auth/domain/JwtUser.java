@@ -11,7 +11,6 @@ public class JwtUser {
     Integer id;
     String username;
     boolean isAdministrator;
-    boolean isLeader;
 
     public Integer getId() {
         return id;
@@ -19,5 +18,9 @@ public class JwtUser {
 
     public boolean isAdministrator() {
         return isAdministrator;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

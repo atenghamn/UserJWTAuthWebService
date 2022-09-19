@@ -12,9 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebSecurity
@@ -41,8 +38,11 @@ public class WebSecurityConfig {
                        .antMatchers("/swagger-ui.html").permitAll()
                        .antMatchers("/swagger-ui/**").permitAll()
                        .antMatchers("/swagger-resources/**").permitAll()
-                       .antMatchers(HttpMethod.POST,"/api/auth").permitAll()
+                       .antMatchers(HttpMethod.POST,"/api/auth/login").permitAll()
                        .antMatchers(HttpMethod.GET,"/api/user/{id}").permitAll()
+                       .antMatchers(HttpMethod.POST, "/api/user/{id}").permitAll()
+                       .antMatchers(HttpMethod.PUT, "/api/user/{id}").permitAll()
+                       .antMatchers(HttpMethod.GET, "/posts?userId={id}").permitAll()
                        .anyRequest().authenticated())
                .userDetailsService(userDetailsService)
                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

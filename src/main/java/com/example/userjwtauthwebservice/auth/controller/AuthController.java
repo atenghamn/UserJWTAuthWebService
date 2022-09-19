@@ -19,7 +19,7 @@ import static com.example.userjwtauthwebservice.auth.domain.SecurityConstants.EX
 
 @Slf4j
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("api/authenticate")
 public class AuthController {
 
     private static final String INVALID_USERNAME_OR_PASSWORD = "Felaktigt användarnamn eller lösenord!";

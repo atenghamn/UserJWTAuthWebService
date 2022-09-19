@@ -25,14 +25,6 @@ public class JwtService {
             DatatypeConverter.parseBase64Binary(SECRET),
             SignatureAlgorithm.HS512.getJcaName());
 
-    /**
-     * Check if the logged in user is the same as the person tries to access the endpoint or if the user is an
-     * administrator.
-     *
-     * @param userId the userId as an Integer.
-     * @param request Servlet Request.
-     * @throws NotAuthorizedException Thrown if the user is not the same.
-     */
     public void isAdministrator(Integer userId, HttpServletRequest request) {
         JwtUser user = decode(request);
         if (!Objects.equals(user.getId(), userId) && !user.isAdministrator()) {
@@ -41,12 +33,7 @@ public class JwtService {
     }
 
 
-    /**
-     * Decodes a Json Web Token and return an user object.
-     *
-     * @param request that contains the "Authorization Bearer" token.
-     * @return A JwtUser if the user is logged in or null.
-     */
+
     public JwtUser decode(HttpServletRequest request) {
         var token = request.getHeader(HEADER_STRING);
         if (token == null) {
@@ -65,18 +52,14 @@ public class JwtService {
                 .build();
     }
 
-    /**
-     * Create a new Json Web Token from account and user objects.
-     *
-     * @param user An existing user.
-     * @return Json Web Token as String.
-     */
+
     public String encodeJwt(JwtUser user) {
         LocalDateTime date = LocalDateTime.now().plus(EXPIRATION_TIME, ChronoUnit.MILLIS);
 
         JwtBuilder builder = Jwts.builder().setId(user.getId().toString())
                 .setSubject(user.getId().toString())
-                .setIssuer("localhost:8080")
+                .setIssuer("userjwtauthwebservice")
+                .claim("username", user.getUsername())
                 .claim("isAdministrator", user.isAdministrator())
                 .setExpiration(Date.from(date.atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(SignatureAlgorithm.HS512, key);

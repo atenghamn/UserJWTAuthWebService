@@ -1,13 +1,12 @@
 package com.example.userjwtauthwebservice.auth.filter;
-import com.example.userjwtauthwebservice.user.dto.UserDetailMapper;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -28,21 +27,23 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             DatatypeConverter.parseBase64Binary(SECRET),
             SignatureAlgorithm.HS512.getJcaName());
 
-    public JWTAuthorizationFilter(){}
+    private final UserDetailsService userDetailsService;
 
+    public JWTAuthorizationFilter(UserDetailsService userDetailsService){
+        this.userDetailsService = userDetailsService;
+    }
     @Override
     protected void doFilterInternal(HttpServletRequest req,
                                     HttpServletResponse res,
                                     FilterChain chain) throws IOException, ServletException {
+
         var header = req.getHeader(HEADER_STRING);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
             chain.doFilter(req, res);
             return;
         }
-
         var authentication = getAuthentication(req);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(req, res);
     }
@@ -51,11 +52,13 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         var token = request.getHeader(HEADER_STRING);
         if (token != null) {
             var claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token.substring(7));
-            var user = claims.getBody().getSubject();
+            var username = claims.getBody().getSubject();
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
             var authority = claims.getBody().get("authority");
 
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null,
+            if (userDetails != null) {
+                return new UsernamePasswordAuthenticationToken(userDetails, null,
                         List.of(new SimpleGrantedAuthority("ROLE_" + authority)));
             }
 
@@ -63,4 +66,5 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         }
         return null;
     }
+
 }
