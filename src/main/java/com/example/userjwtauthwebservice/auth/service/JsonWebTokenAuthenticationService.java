@@ -16,20 +16,15 @@ import java.util.Objects;
 public class JsonWebTokenAuthenticationService implements TokenAuthenticationService {
     @Override
     public TokenWrapper getTokenWrapper(String authHeader) {
-        // Check if token exist, or else not allowed
         if (Objects.isNull(authHeader)) {
             log.info("An application that is not authenticated tried to log in!");
             return null;
         }
-
-        // Check if it's an application, or else not allowed
         return new TokenWrapper(authHeader);
     }
 
     @Override
     public Authentication authenticate(TokenWrapper token) {
-
-        // Authenticate the user since the JWT is correct.
         var authentication = new UsernamePasswordAuthenticationToken(token.getUserId(), null,
                 List.of(new SimpleGrantedAuthority("ROLE_USER")));
         authentication.setDetails(token);
