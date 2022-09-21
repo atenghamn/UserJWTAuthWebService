@@ -52,8 +52,7 @@ public class UserController {
     public ResponseEntity<UserDetail> create(@PathVariable Integer id, @RequestBody CreateUser user, @RequestHeader(value="Authorization") String bearer){
         if(!authorizeAdminForDataManipulation(bearer, "Update user")){
             var userId = new TokenWrapper(bearer).getUserId();
-            if(!Objects.equals(userId, id))
-                return null;
+            if(!Objects.equals(userId, id)) { return null;}
         }
             return ResponseEntity.ok(UserDetailMapper.from(userService.update(id, user)));
     }

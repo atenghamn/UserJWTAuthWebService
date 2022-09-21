@@ -23,5 +23,6 @@ public class UserJwtAuthWebServiceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
          userRepository.save(new User("KentBeck", passwordEncoder.encode("thisIsATest"), true));
+         userRepository.save(new User("Christer", passwordEncoder.encode("ödla"), false ));
     }
 }

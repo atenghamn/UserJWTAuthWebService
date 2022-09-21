@@ -10,17 +10,19 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     UserService userService;
-
+    @Mock PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void init (@Mock UserRepository userRepository){
-        userService = new UserService(userRepository);
+        userService = new UserService(userRepository, passwordEncoder);
 
         Mockito.lenient().when(userRepository.findUserByUsername("Kalle")).thenReturn(Optional.ofNullable(User.builder()
                 .username("Kalle")

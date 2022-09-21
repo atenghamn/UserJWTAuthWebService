@@ -4,15 +4,18 @@ import com.example.userjwtauthwebservice.user.dto.CreateUser;
 import com.example.userjwtauthwebservice.user.entities.User;
 import com.example.userjwtauthwebservice.exception.NotFoundException;
 import com.example.userjwtauthwebservice.user.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-     public UserService(UserRepository userRepository){
+     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
          this.userRepository = userRepository;
+         this.passwordEncoder = passwordEncoder;
      }
 
 
@@ -27,7 +30,7 @@ public class UserService {
          return userRepository.save(
                  User.builder()
                          .username(entity.username())
-                         .password(entity.password())
+                         .password(passwordEncoder.encode(entity.password()))
                          .isAdministrator(entity.isAdministrator())
                          .build()
          );
