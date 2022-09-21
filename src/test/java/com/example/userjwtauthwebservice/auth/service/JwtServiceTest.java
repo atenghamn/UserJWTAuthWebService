@@ -3,7 +3,6 @@ package com.example.userjwtauthwebservice.auth.service;
 import com.example.userjwtauthwebservice.auth.domain.JwtUser;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
 import static com.example.userjwtauthwebservice.commons.Strings.isNotNullOrEmpty;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
